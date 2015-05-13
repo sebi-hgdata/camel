@@ -29,6 +29,10 @@ import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;
 import org.apache.camel.spi.Metadata;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Rest command
  */
@@ -39,6 +43,9 @@ public class VerbDefinition extends OptionalIdentifiedDefinition<VerbDefinition>
 
     @XmlAttribute
     private String method;
+
+    @XmlAttribute
+    private List<Param> params=new ArrayList<Param> ();
 
     @XmlAttribute
     private String uri;
@@ -87,6 +94,10 @@ public class VerbDefinition extends OptionalIdentifiedDefinition<VerbDefinition>
         } else {
             return "verb";
         }
+    }
+
+    public  List<Param> getParams(){
+        return params;
     }
 
     public String getMethod() {

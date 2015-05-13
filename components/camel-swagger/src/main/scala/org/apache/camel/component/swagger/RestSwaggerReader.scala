@@ -23,7 +23,7 @@ import com.wordnik.swagger.model._
 import com.wordnik.swagger.core.util.ModelUtil
 import com.wordnik.swagger.core.SwaggerSpec
 
-import org.apache.camel.model.rest.{VerbDefinition, RestDefinition}
+import org.apache.camel.model.rest.{Param, VerbDefinition, RestDefinition}
 import org.apache.camel.util.FileUtil
 import org.slf4j.LoggerFactory
 
@@ -212,6 +212,20 @@ class RestSwaggerReader {
         bodyType,
         AnyAllowableValues,
         "body",
+        None
+      )
+    }
+
+    for (param:Param <- verb.getParams) {
+      parameters += Parameter(
+        param.getType,
+        None,
+        None,
+        true,
+        false,
+        param.getAnnotatedCls.getCanonicalName,
+        AnyAllowableValues,
+        param.getType,
         None
       )
     }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,7 +52,8 @@ public class RestDefinition extends OptionalIdentifiedDefinition<RestDefinition>
     @XmlAttribute
     private String produces;
 
-    @XmlAttribute @Metadata(defaultValue = "auto")
+    @XmlAttribute
+    @Metadata(defaultValue = "auto")
     private RestBindingMode bindingMode;
 
     @XmlAttribute
@@ -128,7 +129,7 @@ public class RestDefinition extends OptionalIdentifiedDefinition<RestDefinition>
     public void setVerbs(List<VerbDefinition> verbs) {
         this.verbs = verbs;
     }
-   
+
     public Boolean getSkipBindingOnErrorCode() {
         return skipBindingOnErrorCode;
     }
@@ -262,6 +263,19 @@ public class RestDefinition extends OptionalIdentifiedDefinition<RestDefinition>
             // add on last verb as that is how the Java DSL works
             VerbDefinition verb = getVerbs().get(getVerbs().size() - 1);
             verb.setConsumes(mediaType);
+        }
+
+        return this;
+    }
+
+    public RestDefinition headers(Class anotatedClass) {
+        if (getVerbs().isEmpty()) {
+
+        } else {
+            // add on last verb as that is how the Java DSL works
+            VerbDefinition verb = getVerbs().get(getVerbs().size() - 1);
+            Param param = new Param("header", anotatedClass);
+            verb.getParams().add(param);
         }
 
         return this;
