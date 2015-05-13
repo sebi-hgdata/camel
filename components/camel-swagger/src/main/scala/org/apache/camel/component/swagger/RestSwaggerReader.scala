@@ -216,7 +216,7 @@ class RestSwaggerReader {
       )
     }
 
-    for (param:Param <- verb.getParams) {
+    for (param:Param <- verb.getParams.asScala) {
       parameters += Parameter(
         param.getType,
         None,
