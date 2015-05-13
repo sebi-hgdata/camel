@@ -274,7 +274,7 @@ public class RestDefinition extends OptionalIdentifiedDefinition<RestDefinition>
         } else {
             // add on last verb as that is how the Java DSL works
             VerbDefinition verb = getVerbs().get(getVerbs().size() - 1);
-            Param param = new Param("header", anotatedClass);
+            Param param = new Param("header", anotatedClass.getCanonicalName());
             verb.getParams().add(param);
         }
 

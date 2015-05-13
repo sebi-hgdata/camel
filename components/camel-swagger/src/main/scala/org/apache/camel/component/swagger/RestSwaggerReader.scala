@@ -223,7 +223,7 @@ class RestSwaggerReader {
         None,
         true,
         false,
-        param.getAnnotatedCls.getCanonicalName,
+        param.getAnnotatedCls,
         AnyAllowableValues,
         param.getType,
         None
