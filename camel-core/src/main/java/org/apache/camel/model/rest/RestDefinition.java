@@ -268,13 +268,11 @@ public class RestDefinition extends OptionalIdentifiedDefinition<RestDefinition>
         return this;
     }
 
-    public RestDefinition headers(Class anotatedClass) {
+    public RestDefinition restParam(RestOperationParam param) {
         if (getVerbs().isEmpty()) {
-
+            throw new IllegalArgumentException("Must add verb first, such as get/post/delete");
         } else {
-            // add on last verb as that is how the Java DSL works
             VerbDefinition verb = getVerbs().get(getVerbs().size() - 1);
-            Param param = new Param("header", anotatedClass.getCanonicalName());
             verb.getParams().add(param);
         }
 

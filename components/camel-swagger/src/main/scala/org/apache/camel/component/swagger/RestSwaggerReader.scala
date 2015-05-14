@@ -23,7 +23,7 @@ import com.wordnik.swagger.model._
 import com.wordnik.swagger.core.util.ModelUtil
 import com.wordnik.swagger.core.SwaggerSpec
 
-import org.apache.camel.model.rest.{Param, VerbDefinition, RestDefinition}
+import org.apache.camel.model.rest.{RestOperationParam, VerbDefinition, RestDefinition}
 import org.apache.camel.util.FileUtil
 import org.slf4j.LoggerFactory
 
@@ -176,57 +176,17 @@ class RestSwaggerReader {
   def createParameters(verb: VerbDefinition, absPath : String): List[Parameter] = {
     val parameters = new ListBuffer[Parameter]
 
-    // each {} is a parameter
-    val arr = absPath.split("\\/")
-    for (a <- arr) {
-      if (a.startsWith("{") && a.endsWith("}")) {
-        var key = a.substring(1, a.length - 1)
-
-        parameters += Parameter(
-          key,
-          None,
-          None,
-          true,
-          false,
-          "string",
-          AnyAllowableValues,
-          "path",
-          None
-        )
-      }
-    }
-
-    // if we have input type then its a body parameter
-    if (verb.getType != null) {
-      var bodyType = verb.getType
-      if (bodyType.endsWith("[]")) {
-        bodyType = "List[" + bodyType.substring(0, bodyType.length - 2) + "]"
-      }
-
+    for (param:RestOperationParam <- verb.getParams.asScala) {
       parameters += Parameter(
-        "body",
-        None,
-        None,
-        true,
-        false,
-        bodyType,
-        AnyAllowableValues,
-        "body",
-        None
-      )
-    }
-
-    for (param:Param <- verb.getParams.asScala) {
-      parameters += Parameter(
-        param.getType,
-        None,
-        None,
-        true,
-        false,
-        param.getAnnotatedCls,
-        AnyAllowableValues,
-        param.getType,
-        None
+        param.getName,
+        Some( param.getDescription ),
+        Some( param.getDefaultValue),
+        param.getRequired.booleanValue(),
+        param.getAllowMultiple.booleanValue(),
+        param.getDataType,
+        AllowableListValues(param.getAllowableValues.asScala.toList),
+        param.getParamType,
+        Some(param.getParamAccess)
       )
     }
 
