@@ -268,15 +268,12 @@ public class RestDefinition extends OptionalIdentifiedDefinition<RestDefinition>
         return this;
     }
 
-    public RestDefinition restParam(RestOperationParam param) {
+    public RestParamDefinition restParam() {
         if (getVerbs().isEmpty()) {
             throw new IllegalArgumentException("Must add verb first, such as get/post/delete");
-        } else {
-            VerbDefinition verb = getVerbs().get(getVerbs().size() - 1);
-            verb.getParams().add(param);
         }
-
-        return this;
+        VerbDefinition verb = getVerbs().get(getVerbs().size() - 1);
+        return new RestParamDefinition(verb);
     }
 
     public RestDefinition produces(String mediaType) {
@@ -428,10 +425,9 @@ public class RestDefinition extends OptionalIdentifiedDefinition<RestDefinition>
             answer = new VerbDefinition();
             answer.setMethod(verb);
         }
-
+        getVerbs().add(answer);
         answer.setRest(this);
         answer.setUri(uri);
-        getVerbs().add(answer);
         return this;
     }
 

@@ -120,7 +120,7 @@ class RestSwaggerReader {
         consumes,
         List(),
         List(),
-        createParameters(verb, buildUrl(resourcePath, path)),
+        createParameters(verb),
         List(),
         None)
     }
@@ -173,10 +173,15 @@ class RestSwaggerReader {
     else None
   }
 
-  def createParameters(verb: VerbDefinition, absPath : String): List[Parameter] = {
+  def createParameters(verb: VerbDefinition): List[Parameter] = {
     val parameters = new ListBuffer[Parameter]
 
     for (param:RestOperationParam <- verb.getParams.asScala) {
+      var allowValues=AnyAllowableValues
+
+      if(!param.getAllowableValues.isEmpty){
+        AllowableListValues(param.getAllowableValues.asScala.toList)
+      }
       parameters += Parameter(
         param.getName,
         Some( param.getDescription ),
@@ -184,7 +189,7 @@ class RestSwaggerReader {
         param.getRequired.booleanValue(),
         param.getAllowMultiple.booleanValue(),
         param.getDataType,
-        AllowableListValues(param.getAllowableValues.asScala.toList),
+        allowValues,
         param.getParamType,
         Some(param.getParamAccess)
       )

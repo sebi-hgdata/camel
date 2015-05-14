@@ -3,6 +3,7 @@ package org.apache.camel.model.rest;
 import org.apache.camel.spi.Metadata;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,32 +14,32 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RestOperationParam {
     @XmlAttribute
-    String paramType;
+    String paramType="query";
 
     @XmlAttribute
     String name;
 
     @XmlAttribute
-    String description;
+    String description="";
 
     @XmlAttribute
-    String defaultValue;
+    String defaultValue="";
 
     @XmlAttribute
-    Boolean required;
+    Boolean required=true;
 
     @XmlAttribute
-    Boolean allowMultiple;
+    Boolean allowMultiple=false;
 
     @XmlAttribute
-    String dataType;
+    String dataType="string";
 
     @XmlElementWrapper( name="allowableValues" )
     @XmlElement( name="value" )
-    List<String> allowableValues;
+    List<String> allowableValues=new ArrayList<String>();
 
     @XmlAttribute
-    String paramAccess;
+    String paramAccess=null;
 
 
     public RestOperationParam() {

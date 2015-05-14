@@ -128,24 +128,12 @@ public class VerbDefinition extends OptionalIdentifiedDefinition<VerbDefinition>
             allPath = uri;
         }
 
-
         // each {} is a parameter
         String[] arr = allPath.split("\\/");
         for (String a: arr) {
             if (a.startsWith("{") && a.endsWith("}")) {
                 String key = a.substring(1, a.length() - 1);
-
-                RestOperationParam param = new RestOperationParam();
-                param.setName(key);
-                param.setDescription(null);
-                param.setDefaultValue(null);
-                param.setRequired(true);
-                param.setAllowMultiple(false);
-                param.setDataType("string");
-                param.setAllowableValues(new ArrayList<String>());
-                param.setParamType("path");
-                param.setParamAccess(null);
-                getParams().add(param);
+                rest.restParam().name(key).type("path").endParam();
             }
         }
 
@@ -231,18 +219,7 @@ public class VerbDefinition extends OptionalIdentifiedDefinition<VerbDefinition>
         if (type.endsWith("[]")) {
             bodyType = "List[" + bodyType.substring(0, type.length() - 2) + "]";
         }
-
-        RestOperationParam param = new RestOperationParam();
-        param.setName("body");
-        param.setDescription(null);
-        param.setDefaultValue(null);
-        param.setRequired(true);
-        param.setAllowMultiple(false);
-        param.setDataType(bodyType);
-        param.setAllowableValues(new ArrayList<String>());
-        param.setParamType("body");
-        param.setParamAccess(null);
-        getParams().add(param);
+        rest.restParam().name("body").type("body").dataType(bodyType).endParam();
     }
 
     public String getOutType() {
