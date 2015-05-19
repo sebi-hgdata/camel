@@ -213,6 +213,13 @@ public class VerbDefinition extends OptionalIdentifiedDefinition<VerbDefinition>
         this.outType = outType;
     }
 
+    /**
+     * Sets swagger operation parameters
+     */
+    public void setParams(List<RestOperationParamDefinition> params) {
+        this.params = params;
+    }
+
     public RestDefinition getRest() {
         return rest;
     }
