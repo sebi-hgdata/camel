@@ -55,6 +55,8 @@
     <!-- Make sure to keep JAXB version up to date in parent/pom.xml in the bottom of the file -->
     <jaxb-version>2.2.11</jaxb-version>
     <errorprone-version>2.5</errorprone-version>
+    <skipTests>true</skipTests>
+    <maven.test.skip>true</maven.test.skip>
   </properties>
 
   <mailingLists>
@@ -139,8 +141,8 @@
     <module>components</module>
     <module>tooling</module>
     <module>platforms</module>
-    <module>tests</module>
-    <module>examples</module>
+    <!-- <module>tests</module> -->
+    <!-- <module>examples</module> -->
   </modules>
 
   <scm>
