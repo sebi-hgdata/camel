@@ -910,7 +910,7 @@
     </dependency>
 
     <!-- camel examples -->
-    <dependency>
+    <!-- <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-example-aggregate</artifactId>
     </dependency>
@@ -961,7 +961,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-example-sql</artifactId>
-    </dependency>
+    </dependency> -->
 
 
     <dependency>

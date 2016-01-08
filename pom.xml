@@ -298,7 +298,7 @@
         </property>
       </activation>
       <modules>
-        <module>apache-camel</module>
+       <!--  <module>apache-camel</module> -->
       </modules>
     </profile>
     <profile>
